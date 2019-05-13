@@ -70,24 +70,8 @@ RUN chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
     chmod 0775 /usr/local/bin/docker-entrypoint.sh
 
 RUN elasticsearch-plugin install -b com.floragunn:search-guard-7:7.0.1-35.0.0
-RUN cd /usr/share/elasticsearch/config
 RUN wget https://downloads.search-guard.com/resources/certificates/certificates.zip --directory-prefix=/usr/share/elasticsearch/config/
 RUN unzip /usr/share/elasticsearch/config/certificates.zip -d /usr/share/elasticsearch/config
-RUN cat /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.transport.pemcert_filepath: esnode.pem" >>  /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.transport.pemkey_filepath: esnode-key.pem" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.transport.pemtrustedcas_filepath: root-ca.pem" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.transport.enforce_hostname_verification: false" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.http.enabled: true" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.http.pemcert_filepath: esnode.pem" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.http.pemkey_filepath: esnode-key.pem" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.ssl.http.pemtrustedcas_filepath: root-ca.pem" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.allow_unsafe_democertificates: true" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.allow_default_init_sgindex: true" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "searchguard.authcz.admin_dn:" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "  - CN=kirk,OU=client,O=client,L=test,C=de" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "xpack.security.enabled: false" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN cat /usr/share/elasticsearch/config/elasticsearch.yml
 
 EXPOSE 9200 9300
 
