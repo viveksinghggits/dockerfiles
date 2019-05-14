@@ -59,7 +59,7 @@ COPY --from=builder --chown=1000:0 /usr/share/elasticsearch /usr/share/elasticse
 # REF: https://github.com/elastic/elasticsearch-docker/issues/171
 RUN ln -sf /etc/pki/ca-trust/extracted/java/cacerts /usr/share/elasticsearch/jdk/lib/security/cacerts
 
-ENV PATH /usr/share/elasticsearch/bin:$PATH
+ENV PATH /usr/share/elasticsearch/plugins/search-guard-7/tools:/usr/share/elasticsearch/bin:$PATH
 
 COPY --chown=1000:0 bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
@@ -72,6 +72,8 @@ RUN chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
 RUN elasticsearch-plugin install -b com.floragunn:search-guard-7:7.0.1-35.0.0
 RUN wget https://downloads.search-guard.com/resources/certificates/certificates.zip --directory-prefix=/usr/share/elasticsearch/config/
 RUN unzip /usr/share/elasticsearch/config/certificates.zip -d /usr/share/elasticsearch/config
+
+COPY config/sg_internal_users.yml plugins/search-guard-7/sgconfig 
 
 EXPOSE 9200 9300
 
