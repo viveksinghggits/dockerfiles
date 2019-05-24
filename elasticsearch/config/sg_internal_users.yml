@@ -12,9 +12,9 @@ _sg_meta:
 ## Demo users
 
 admin:
-  hash: "$2y$12$rD7pSGye9U5UqPINpBAZJO2rTw9gxPa.fdbXlVQxTXURTvlhkCbSG"
+  hash: ${envbc.ADMIN_PWD} 
   reserved: true
   backend_roles:
   - "admin"
-  description: "Demo admin user"
+  description: "admin user"
 
