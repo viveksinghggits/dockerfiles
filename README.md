@@ -18,6 +18,16 @@ unexpected.
 For more information about Elasticsearch, please visit
 https://www.elastic.co/products/elasticsearch.
 
+### How to run secured elastic search image
+
+You will just have to checkout the repository and go to elastic folder to make the build 
+out of the already present Dockerfile (You can use below command to build). 
+`docker build -t <image-name:tag>`
+
+Once you  have the image built, you can run below command to run secured elastic search
+`docker run -p 9200:9200 -e "ADMIN_PWD=password" -e "discovery.type=single-node" <image-name:tag>`
+
+
 ### Where to file issues and PRs
 
 - [Issues](https://github.com/elastic/elasticsearch/issues)
