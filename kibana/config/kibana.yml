@@ -1,9 +1,13 @@
-#
-# ** THIS IS AN AUTO-GENERATED FILE **
-#
 
 # Default Kibana configuration for docker target
 server.name: kibana
 server.host: "0"
-elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+elasticsearch.hosts: [ "https://localhost:9200" ]
 xpack.monitoring.ui.container.elasticsearch.enabled: true
+elasticsearch.username: "admin"
+elasticsearch.password: "viveksingh"
+
+elasticsearch.ssl.verificationMode: none
+
+# Whitelist the Search Guard Multi Tenancy Header
+elasticsearch.requestHeadersWhitelist: [ "Authorization", "sgtenant" ]

@@ -43,6 +43,9 @@ COPY --chown=1000:0 config/kibana.yml /usr/share/kibana/config/kibana.yml
 # variables and translate them to Kibana CLI options.
 COPY --chown=1000:0 bin/kibana-docker /usr/local/bin/
 
+# install search guard kibana plugin
+RUN kibana-plugin install https://search.maven.org/remotecontent?filepath=com/floragunn/search-guard-kibana-plugin/6.7.2-18.4/search-guard-kibana-plugin-6.7.2-18.4.zip
+
 # Ensure gid 0 write permissions for OpenShift.
 RUN chmod g+ws /usr/share/kibana && find /usr/share/kibana -gid 0 -and -not -perm /g+w -exec chmod g+w {} \;
 
