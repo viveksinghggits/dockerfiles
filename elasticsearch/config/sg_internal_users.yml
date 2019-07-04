@@ -11,10 +11,19 @@ _sg_meta:
 
 ## Demo users
 
+#admin:
+#  hash: ${envbc.ADMIN_PWD} 
+#  reserved: true
+#  backend_roles:
+#  - "admin"
+#  description: "admin user"
 admin:
+  readonly: true
   hash: ${envbc.ADMIN_PWD} 
-  reserved: true
-  backend_roles:
-  - "admin"
-  description: "admin user"
-
+  roles:
+    - admin
+#  attributes:
+#    #no dots allowed in attribute names
+#    attribute1: value1
+#    attribute2: value2
+#    attribute3: value3
