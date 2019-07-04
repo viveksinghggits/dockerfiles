@@ -63,7 +63,7 @@ RUN groupadd -g 1000 elasticsearch && \
 
 WORKDIR /usr/share/elasticsearch
 COPY --from=builder --chown=1000:0 /usr/share/elasticsearch /usr/share/elasticsearch
-ENV PATH /usr/share/elasticsearch/bin:$PATH
+ENV PATH /usr/share/elasticsearch/plugins/search-guard-6/tools:/usr/share/elasticsearch/bin:$PATH
 
 COPY --chown=1000:0 bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
@@ -72,6 +72,12 @@ COPY --chown=1000:0 bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
     chmod g=u /etc/passwd && \
     chmod 0775 /usr/local/bin/docker-entrypoint.sh
+
+RUN elasticsearch-plugin install -b com.floragunn:search-guard-6:6.6.2-25.1 
+RUN wget https://downloads.search-guard.com/resources/certificates/certificates.zip --directory-prefix=/usr/share/elasticsearch/config/
+RUN unzip /usr/share/elasticsearch/config/certificates.zip -d /usr/share/elasticsearch/config
+
+COPY config/sg_internal_users.yml plugins/search-guard-6/sgconfig
 
 EXPOSE 9200 9300
 
